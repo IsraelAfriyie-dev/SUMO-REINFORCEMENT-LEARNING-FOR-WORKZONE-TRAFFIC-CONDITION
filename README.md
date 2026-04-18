@@ -14,7 +14,7 @@
 SUMO-RL provides a simple interface to instantiate Reinforcement Learning (RL) environments with [SUMO](https://github.com/eclipse/sumo) for Traffic Signal Control.
 This project extends the original SUMO-RL framework with a **multi-model comparison pipeline** that evaluates trained DQN agents against SUMO's default fixed-timing controller in a **work zone / construction scenario**. It measures five key metrics — waiting time, queue length, average speed, throughput, and TTC (Time-To-Collision) safety conflicts — and generates Pareto front visualizations to support multi-objective model selection.
 
-<img src="expected plots/workZone.png" align="center" width="70%"/>
+<img src="expected plots/flowchart.png" align="center" width="80%"/>
 
 Goals of this repository:
 - Provide a simple interface to work with Reinforcement Learning for Traffic Signal Control using SUMO
