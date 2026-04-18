@@ -148,13 +148,28 @@ The script [`compare_models.py`](experiments/compare_models.py) evaluates a set 
 </p>
 
 
-### Configuration
-
+### Hyerparamters
 ```python
-SIMULATION_SECONDS = 200   # Total simulation time per episode
-DELTA_TIME         = 5     # Agent decision interval (seconds)
-EPISODE_SEEDS      = [11, 22, 33]  # Random seeds for reproducibility
-CONTROLLED_TLS_ID  = "TL1"         # Traffic light ID in your network
+DQN Training Hyperparameters
+LEARNING_RATE           = 0.001        # Neural network learning rate
+DISCOUNT_FACTOR         = 0.99         # Reward discount factor (gamma)
+REPLAY_BUFFER_SIZE      = 100000       # Experience replay memory capacity
+MINI_BATCH_SIZE         = 64           # Training batch size
+TARGET_UPDATE_FREQ      = 1000         # Target network update interval (steps)
+
+Exploration Strategy (Epsilon-Greedy)
+INITIAL_EPSILON         = 1.0          # Starting exploration rate
+MIN_EPSILON             = 0.01         # Minimum exploration rate
+EPSILON_DECAY_RATE      = 0.995        # Exploration decay multiplier
+
+Training Configuration
+NUM_EPISODES            = 500          # Total training episodes
+MAX_STEPS_PER_EPISODE   = 1000         # Maximum steps per episode
+HIDDEN_LAYER_SIZE       = 128          # Neural network hidden layer neurons
+
+Network Architecture
+OPTIMIZER               = "Adam"       # Optimization algorithm
+ACTIVATION_FUNCTION     = "ReLU"       # Hidden layer activation
 ```
 
 ### Plotting Results
