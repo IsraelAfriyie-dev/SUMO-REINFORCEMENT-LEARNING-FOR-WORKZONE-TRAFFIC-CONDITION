@@ -24,11 +24,6 @@ Goals of this repository:
 
 The main class is [SumoEnvironment](https://github.com/LucasAlegre/sumo-rl/blob/main/sumo_rl/environment/env.py).
 If instantiated with parameter `single_agent=True`, it behaves like a regular [Gymnasium Env](https://github.com/Farama-Foundation/Gymnasium).
-For multiagent environments, use [env](https://github.com/LucasAlegre/sumo-rl/blob/main/sumo_rl/environment/env.py) or [parallel_env](https://github.com/LucasAlegre/sumo-rl/blob/main/sumo_rl/environment/env.py) to instantiate a [PettingZoo](https://github.com/PettingZoo-Team/PettingZoo) environment with AEC or Parallel API, respectively.
-[TrafficSignal](https://github.com/LucasAlegre/sumo-rl/blob/main/sumo_rl/environment/traffic_signal.py) is responsible for retrieving information and actuating on traffic lights using [TraCI](https://sumo.dlr.de/wiki/TraCI) API.
-
-For more details, check the [documentation online](https://lucasalegre.github.io/sumo-rl/).
-
 <!-- end intro -->
 
 ---
@@ -57,17 +52,10 @@ source ~/.bashrc
 > ```
 > Note: this disables `sumo-gui` and parallel simulations ([more details](https://sumo.dlr.de/docs/Libsumo.html)).
 
-### Install SUMO-RL
-
-Stable release version is available through pip:
+Clone this Repository:
 ```bash
-pip install sumo-rl
-```
-
-Or install the latest (unreleased) version:
-```bash
-git clone https://github.com/LucasAlegre/sumo-rl
-cd sumo-rl
+git clone https://github.com/IsraelAfriyie-dev/SUMO-REINFORCEMENT-LEARNING-FOR-WORKZONE-TRAFFIC-CONDITION
+cd SUMO-REINFORCEMENT-LEARNING-FOR-WORKZONE-TRAFFIC-CONDITION
 pip install -e .
 ```
 
@@ -81,7 +69,7 @@ pip install stable-baselines3 matplotlib numpy
 
 ---
 
-## MDP — Observations, Actions and Rewards
+## MDP — Observations and Rewards
 
 ### Observation
 
@@ -127,18 +115,7 @@ env = SumoEnvironment(..., reward_fn=my_reward_fn)
 
 ## Multi-Model Comparison: DQN Pareto Agents vs SUMO Default
 
-The script [`compare_models.py`](experiments/compare_models.py) evaluates a set of pre-trained DQN models against SUMO's default fixed-timing controller across multiple episodes and seeds.
-
-### Evaluated Models
-
-| Model | Description |
-|---|---|
-| `SUMO_Default` | Baseline: SUMO's built-in fixed signal timing (no RL) |
-| `DQN_w04` | DQN Pareto agent — weight configuration 04 |
-| `DQN_w11` | DQN Pareto agent — weight configuration 11 |
-| `DQN_w17` | DQN Pareto agent — weight configuration 17 |
-| `DQN_w18` | DQN Pareto agent — weight configuration 18 |
-| `DQN_w19` | DQN Pareto agent — weight configuration 19 |
+The script [`compare_models.py`](experiments/compare_models.py) evaluates a set of pre-trained DQN models against SUMO's default fixed-timing controller for some measured metrics across multiple episodes and seeds.
 
 ### Measured Metrics
 
@@ -150,28 +127,6 @@ The script [`compare_models.py`](experiments/compare_models.py) evaluates a set 
 | **Throughput** | Number of vehicles that successfully completed their trip |
 | **TTC Conflicts** | Number of vehicles with a Time-To-Collision below 1.5 seconds (safety proxy) |
 
-### Running the Comparison
-
-1. Place your trained model files under `DQN_OUTPUTS/`:
-```
-DQN_OUTPUTS/
-├── dqn_workzone_w04.zip
-├── dqn_workzone_w11.zip
-├── dqn_workzone_w17.zip
-├── dqn_workzone_w18.zip
-└── dqn_workzone_w19.zip
-```
-
-2. Update the network and route file paths in the script:
-```python
-NET_FILE   = "path/to/your/net.net.xml"
-ROUTE_FILE = "path/to/your/rou.route.xml"
-```
-
-3. Run the comparison:
-```bash
-python experiments/compare_models.py
-```
 
 ### Configuration
 
@@ -182,34 +137,8 @@ EPISODE_SEEDS      = [11, 22, 33]  # Random seeds for reproducibility
 CONTROLLED_TLS_ID  = "TL1"         # Traffic light ID in your network
 ```
 
-### Output
+### Plotting Results
 
-The script prints a summary table and saves three plots:
-
-| File | Description |
-|---|---|
-| `comparison_bars.png` | Bar charts for each metric across all models |
-| `pareto_2d.png` | 2D Pareto front: Waiting Time vs TTC Conflicts |
-| `pareto_3d.png` | 3D Pareto front: Waiting Time vs Queue Length vs TTC Conflicts |
-
-Example console output:
-```
-====================================================================================================
-TRAFFIC SIGNAL CONTROL COMPARISON
-====================================================================================================
-Model               Waiting (s)    Queue       Speed (m/s)    Throughput     TTC
-----------------------------------------------------------------------------------------------------
-SUMO_Default        42.31          8.14        3.21           112.00         5.00
-DQN_w04             29.18          5.67        4.05           131.00         2.33
-DQN_w11             27.40          5.12        4.22           138.00         1.67
-...
-
-🏆 BEST PERFORMERS:
-  Lowest Waiting:       DQN_w11 (27.40s)
-  Lowest TTC Conflicts: DQN_w19 (1.33)
-  Highest Speed:        DQN_w17 (4.38 m/s)
-  Highest Throughput:   DQN_w11 (138.00)
-```
 
 ---
 
