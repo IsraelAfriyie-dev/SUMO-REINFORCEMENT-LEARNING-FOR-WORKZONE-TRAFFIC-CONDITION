@@ -69,7 +69,7 @@ pip install stable-baselines3 matplotlib numpy
 
 ---
 
-## MDP — Observations and Rewards
+## Observations, Action and Rewards
 
 ### Observation
 
@@ -87,6 +87,20 @@ obs = [phase_one_hot, min_green, lane_1_density, ..., lane_n_density, lane_1_que
 You can define your own observation by implementing a class that inherits from [ObservationFunction](https://github.com/LucasAlegre/sumo-rl/blob/main/sumo_rl/environment/observations.py) and passing it to the environment constructor.
 
 <!-- end observation -->
+
+
+### Action
+
+<!-- start Action -->
+
+The agent selects from a discrete set of traffic signal phases at the intersection:
+```python
+A = {0, 1, 2, ..., Np-1}
+```
+where Np is the total number of feasible signal phases.
+<!-- end action -->
+
+
 
 ### Rewards
 
@@ -128,7 +142,7 @@ The script [`compare_models.py`](experiments/compare_models.py) evaluates a set 
 | **TTC Conflicts** | Number of vehicles with a Time-To-Collision below 1.5 seconds (safety proxy) |
 
 <p align="center">
-<img src="expected plots/result.png" align="center" width="50%"/>
+<img src="expected plots/dqn_work_zone_results.png" align="center" width="50%"/>
 </p>
 
 
@@ -175,11 +189,8 @@ while not done:
 
 <!-- end gymnasium -->
 
-### Multi-model Pareto comparison (work zone):
-```bash
-python experiments/compare_models.py
-```
-
+### Pareto Multi-Objective Optimization:
+The reinforcement learning framework trains multiple policies using different reward weight combinations to explore trade-offs between competing objectives: waiting time, queue length, and safety (TTC conflicts).
 
 <p align="center">
 <img src="outputs/result.png" align="center" width="50%"/>
