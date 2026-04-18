@@ -105,7 +105,7 @@ You can define your own observation by implementing a class that inherits from [
 
 <!-- start reward -->
 
-The default reward function is the change in cumulative vehicle delay:
+The reward signal combines multiple competing objectives relevant to work-zone traffic control through weighted scalarization:
 
 <p align="center">
 <img src="docs/_static/reward.png" align="center" width="25%"/>
