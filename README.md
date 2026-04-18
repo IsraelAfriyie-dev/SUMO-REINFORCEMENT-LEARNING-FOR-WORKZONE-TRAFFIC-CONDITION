@@ -101,22 +101,6 @@ You can define your own observation by implementing a class that inherits from [
 
 <!-- end observation -->
 
-### Action
-
-<!-- start action -->
-
-The action space is discrete. Every `delta_time` seconds, each traffic signal agent chooses the next green phase configuration.
-
-For example, in the [2-way single intersection](https://github.com/LucasAlegre/sumo-rl/blob/main/experiments/dqn_2way-single-intersection.py) there are |A| = 4 discrete actions:
-
-<p align="center">
-<img src="docs/_static/actions.png" align="center" width="75%"/>
-</p>
-
-> Every phase change is preceded by a yellow phase lasting `yellow_time` seconds.
-
-<!-- end action -->
-
 ### Rewards
 
 <!-- start reward -->
@@ -256,35 +240,6 @@ while not done:
 ```
 
 <!-- end gymnasium -->
-
-### PettingZoo Multi-Agent API
-
-<!-- start pettingzoo -->
-
-For multi-agent environments, use the PettingZoo API:
-
-```python
-import sumo_rl
-
-env = sumo_rl.parallel_env(
-    net_file='nets/RESCO/grid4x4/grid4x4.net.xml',
-    route_file='nets/RESCO/grid4x4/grid4x4_1.rou.xml',
-    use_gui=True,
-    num_seconds=3600
-)
-
-observations = env.reset()
-while env.agents:
-    actions = {agent: env.action_space(agent).sample() for agent in env.agents}
-    observations, rewards, terminations, truncations, infos = env.step(actions)
-```
-
-<!-- end pettingzoo -->
-
-
-## Experiments
-
-Check [experiments](https://github.com/LucasAlegre/sumo-rl/tree/main/experiments) for examples on how to train and evaluate RL agents.
 
 ### Multi-model Pareto comparison (work zone):
 ```bash
