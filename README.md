@@ -24,7 +24,7 @@ Goals of this repository:
 - **Evaluate and compare multiple DQN Pareto-optimal agents against the SUMO default controller**
 - **Multi-objective analysis: efficiency (waiting, queue, speed, throughput) vs. safety (TTC conflicts)**
 
-<img src="expected plots/workZone.png" align="center" width="70%"/>
+<img src="expected plots/workzone.png" align="center" width="70%"/>
 
 <!-- end intro -->
 
